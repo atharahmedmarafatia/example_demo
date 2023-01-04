@@ -18,7 +18,6 @@ class CompanyController extends Controller
             $data = Company::get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('user_id',function($row) {
-                    // return $row->users->first()->name;
                     $btn_user = '<a href="" data-id="'.$row->id.'" id="show" class="btn btn-primary btn-sm">show</a>';
                     return $btn_user;
                 })
@@ -29,9 +28,7 @@ class CompanyController extends Controller
                     return $row->created_at->format('D M d, Y');
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" id="show" class="btn btn-primary btn-sm">View</a>  ';
-
-                    $btn .= '<a href="'.route('company.edit',$row->id).'" class="btn btn-warning btn-sm">Edit</a>';
+                    $btn = '<a href="'.route('company.edit',$row->id).'" class="btn btn-warning btn-sm">Edit</a>';
                     return $btn;
                 })
                 ->rawColumns(['user_id','action'])
@@ -78,8 +75,6 @@ class CompanyController extends Controller
         $name = $request->name;
         $user_ids = $request->user_ids;
         $country = $request->country_id;
-        // $users = implode(",",$user_ids);
-        // dd($request->user_ids);
         $company = Company::create([
             'name' => $name,
             'country_id' => $country,
@@ -126,7 +121,6 @@ class CompanyController extends Controller
         if(isset($request->user_ids))
         {
             $user_ids = $request->user_ids;
-            // $users = implode(",",$user_ids);
         }
 
         Company::where('id',$company->id)->update([

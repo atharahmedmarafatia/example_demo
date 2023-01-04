@@ -17,7 +17,6 @@
             <div class="form-group">
                 <div class="form-floating">
                     <select class="form-select" name="country_id" id="country_id">
-                        <option selected>Open this select menu</option>
                         @foreach ($country as $key => $countries)
                             <option value="{{$countries->id }}" {{($countries->id == $company->country_id) ? 'selected' : ''}}>{{$countries->name}}</option>
                         @endforeach

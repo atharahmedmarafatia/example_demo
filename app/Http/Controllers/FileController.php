@@ -16,7 +16,6 @@ class FileController extends Controller
             $data = File::get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('file',function($row) {
-                    // return $row->users->first()->name;
                     $btn_user = '<a href="" data-id="'.$row->id.'" id="show" class="btn btn-primary btn-sm">show</a>';
                     return $btn_user;
                 })
@@ -26,26 +25,11 @@ class FileController extends Controller
                 ->addColumn('created_at',function($row) {
                     return $row->created_at->format('D M d, Y');
                 })
-                // ->addColumn('action', function($row){
-                   
-                //     $btn = '<a href="" data-id="'.$row->id.'" target="_blank" id="download" class="btn btn-warning btn-sm">Download</a>';
-                //     return $btn;
-                // })
                 ->rawColumns(['file','content'])
                 ->make(true);
         }
         return view('file');
     }
-
-    public function downloadFile(Request $request)
-    {
-        // dd($request->all());
-        $file_id = File::find($request->id);
-        $pathToFile = public_path()."/". "pdf/".$file_id->orig_filename;
-        $headers = ['Content-Type: application/pdf'];
-        return response()->download($pathToFile,'test.pdf', $headers);
-    }
-
 
     public function store(Request $request)
     {
@@ -79,13 +63,6 @@ class FileController extends Controller
             ];
             return response()->json($msg,422);
         }
-    //    $upload_file = new File;
-    //    $upload_file->orig_filename = $fileName;
-    //    dd($file->getSize());
-    //    $upload_file->mime_type = $file->getMimeType();
-    //    $upload_file->filesize = $file->getSize();
-    //    $upload_file->content = $content;
-    //    $upload_file->save();
 
        $file_store = File::updateOrCreate(
             ['filesize' => $file->getSize(), 'orig_filename' => $fileName],

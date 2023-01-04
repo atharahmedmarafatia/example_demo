@@ -15,7 +15,6 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        // $user = Auth::user();
         if ($request->ajax()) {
             $user = Auth::user();
             $data = User::where('id',$user->id)->first()->company;
@@ -38,7 +37,6 @@ class UserController extends Controller
 
     public function create()
     {
-        // $users = User::all();
         $companies = Company::all();
         return view('users.create',compact('companies'));
     }

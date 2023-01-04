@@ -55,7 +55,6 @@
                                 <th>Original filename</th>
                                 <th>Content</th>
                                 <th>Date</th>
-                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -79,23 +78,7 @@
                 {data: 'orig_filename', name: 'orig_filename'},
                 {data:'content',name:'content'},
                 {data: 'created_at', name: 'created_at'},
-                // {data: 'action', name: 'action'},
             ]
         });
     });
-
-$(document).on("click", "#download", function(e){
-    e.preventDefault();
-    var id = $(this).attr('data-id');
-    console.log(id);
-    $.ajax({
-        type:"GET",
-        url:  "{{route('file.download')}}",
-        token: "{{ csrf_token() }}",
-        data: {id:id},
-        success: function(res){
-            console.log(res);
-        }
-    })
-});
 </script>

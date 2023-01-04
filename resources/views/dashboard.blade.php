@@ -54,9 +54,6 @@
 $(document).on("click", "#show", function(e){
     e.preventDefault();
     var id = $(this).attr('data-id');
-    // var url = "{{route('company.getUserData', ':companyId')}}"
-    // url.replace(':companyId', id);
-    console.log(id);
     $.ajax({
         type:"GET",
         url:  "{{route('company.getUserData')}}",
