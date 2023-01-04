@@ -26,6 +26,10 @@ class UserController extends Controller
                 ->addColumn('created_at',function($row) {
                     return $row->created_at->format('D M d, Y');
                 })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'.route('user.company.edit',$row->id).'" class="btn btn-warning btn-sm">Edit</a>';
+                    return $btn;
+                })
                 ->rawColumns(['company','action'])
                 ->make(true);
         }
@@ -66,9 +70,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        $companies = Company::all();
         $users = User::where('id',$user->id)->with('company')->first();
-
-        return view('users.edit',compact('users'));
+        return view('users.edit',compact('users','companies'));
     }
 
     public function update(Request $request, $id)
@@ -92,6 +96,6 @@ class UserController extends Controller
                 ]);
             }
         }
-        return redirect()->route('dashboard')->with('message', 'Company updated successfully!');
+        return redirect()->route('user.company.index')->with('message', 'Company updated successfully!');
     }
 }

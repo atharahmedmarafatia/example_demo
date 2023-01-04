@@ -1,6 +1,7 @@
 <x-app-layout>
-    <form action="{{route('user.company.store')}}" method="POST" class="step-1 creatives-form">
+    <form action="{{route('user.company.update',$users->id)}}" method="POST" class="step-1 creatives-form">
         @csrf
+        @method('put')
         <div class="main-form">
             <div class="form-group">
                 <div class="form-floating">
@@ -13,13 +14,9 @@
                                 $selectedcompany_id=[];
                             }
                         @endphp
-                        @foreach($users as $user)
-                            <option value="{{$user->id}}" {{ (!empty($selectedcompany_id) && in_array($user->id,$selectedcompany_id)) ? 'selected' : '' }} >{{$user->name}}</option>
-                        @endforeach
-
                         
-                        @foreach ($companies as $key => $company)
-                            <option value="{{$company->id}}" {{ old('company_id') }}>{{$company->name}}</option>
+                        @foreach ($companies as $company)
+                            <option value="{{$company->id}}" {{ (!empty($selectedcompany_id) && in_array($company->id,$selectedcompany_id)) ? 'selected' : '' }} >{{$company->name}}</option>
                         @endforeach
                     </select>
                     <label for="company_id">Company name</label>

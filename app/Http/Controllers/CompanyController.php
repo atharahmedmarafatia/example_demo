@@ -7,6 +7,7 @@ use App\Models\CompanyUser;
 use App\Models\Country;
 use App\Models\User;
 use DataTables;
+use Validator;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -151,8 +152,37 @@ class CompanyController extends Controller
     public function getAllDetails(Request $request)
     {
         $user_id = $request->user_id;
-        $user = User::where('id',$user_id)->with('company')->get();
-
-        dd($user);
+        $users = User::where('id',$user_id)->with('company')->get();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                "success" => false,
+                'code' => 400,
+                'message' => $validator->errors(),
+            ],400);
+        }
+        foreach($users as $user)
+        {
+            $response['users'] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'created_at' => $user->created_at->format('D M d, Y'),
+                'company' => $user->company,
+    
+            ];
+            foreach($user->company as $company)
+            {
+                unset($company->pivot);
+            }
+        }
+        return response()->json([
+            "success" => true,
+            'code' => 200,
+            "message" => "User Company Details fetch successfully.",
+            "data" => $response
+        ]);
     }
 }

@@ -21,6 +21,7 @@
                             <tr>
                                 <th>My Company Name</th>
                                 <th>Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -40,6 +41,7 @@
             columns: [
                 {data: 'company', name: 'company'},
                 {data: 'created_at', name: 'created_at'},
+                {data: 'action', name: 'action'},
             ]
         });
     });

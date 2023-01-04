@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Dashboard Company Page') }}
         </h2>
     </x-slot>
 
@@ -68,6 +68,5 @@ $(document).on("click", "#show", function(e){
             $("#userModal").modal("show");
         }
     })
-    
 });
 </script>

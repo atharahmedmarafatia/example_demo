@@ -9,7 +9,7 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
-
+ 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -22,6 +22,10 @@
 
                     <x-nav-link :href="route('user.company.index')" :active="request()->routeIs('user.company.index')">
                         My Company
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('file')" :active="request()->routeIs('file ')">
+                        File
                     </x-nav-link>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('file', [FileController::class, 'index'])->name('file');
+    Route::get('file/download', [FileController::class, 'downloadFile'])->name('file.download');
+    Route::post('file', [FileController::class, 'store'])->name('file.store');
 
     Route::get('company', [CompanyController::class, 'index'])->name('company');
     Route::get('company/create', [CompanyController::class, 'create'])->name('company.create');
@@ -39,7 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('user/company/index',[UserController::class,'index'])->name('user.company.index');
     Route::get('user/company',[UserController::class,'create'])->name('user.company.create');
     Route::post('user/company/store', [UserController::class, 'store'])->name('user.company.store');
-
+    Route::get('user/company/edit/{id}', [UserController::class, 'edit'])->name('user.company.edit');
+    Route::put('user/company/update/{id}', [UserController::class, 'update'])->name('user.company.update');
 });
 
 require __DIR__.'/auth.php';
