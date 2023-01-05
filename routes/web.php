@@ -4,7 +4,11 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +22,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // $exitCode = Artisan::call('migrate:reset', [
+    //     '--force' => true,
+        
+    // ]);
+    // Schema::dropIfExists('migrations');
+    // // dd($exitCode);
+    // // DROP TABLE `migrations`;
+    // DB::unprepared(Files::get('/home/acquaint/Downloads/billing_new.sql'));
+    
+
+    // $sql_dump = Files::get('/home/acquaint/Downloads/reportsystem.sql');
+    // DB::connection()->getPdo()->exec($sql_dump);
+
+
+        //ENTER THE RELEVANT INFO BELOW
+        
     return view('welcome');
 });
 
@@ -46,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::post('user/company/store', [UserController::class, 'store'])->name('user.company.store');
     Route::get('user/company/edit/{id}', [UserController::class, 'edit'])->name('user.company.edit');
     Route::put('user/company/update/{id}', [UserController::class, 'update'])->name('user.company.update');
+
 });
+Route::get('multidb_2', [UserController::class, 'multidb_2'])->name('multidb_2');
+Route::get('multiconnection', [UserController::class, 'multiDB'])->name('multiDB');
 
 require __DIR__.'/auth.php';
