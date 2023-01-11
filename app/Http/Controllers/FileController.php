@@ -18,22 +18,22 @@ class FileController extends Controller
       
 
 
-        // if ($request->ajax()) {
-        //     $data = File::get();
-        //     return Datatables::of($data)->addIndexColumn()
-        //         ->addColumn('file',function($row) {
-        //             $btn_user = '<a href="" data-id="'.$row->id.'" id="show" class="btn btn-primary btn-sm">show</a>';
-        //             return $btn_user;
-        //         })
-        //         ->addColumn('content',function($row) {
-        //             return nl2br($row->content);
-        //         })
-        //         ->addColumn('created_at',function($row) {
-        //             return $row->created_at->format('D M d, Y');
-        //         })
-        //         ->rawColumns(['file','content'])
-        //         ->make(true);
-        // }
+        if ($request->ajax()) {
+            $data = File::get();
+            return Datatables::of($data)->addIndexColumn()
+                ->addColumn('file',function($row) {
+                    $btn_user = '<a href="" data-id="'.$row->id.'" id="show" class="btn btn-primary btn-sm">show</a>';
+                    return $btn_user;
+                })
+                ->addColumn('content',function($row) {
+                    return nl2br($row->content);
+                })
+                ->addColumn('created_at',function($row) {
+                    return $row->created_at->format('D M d, Y');
+                })
+                ->rawColumns(['file','content'])
+                ->make(true);
+        }
         return view('file');
     }
 
