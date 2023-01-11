@@ -78,5 +78,16 @@ class MultipleDb extends Command
                 }
             }
         }
+        $mysql_users = DB::connection('mysql')->table('users')->select('id','email')->whereNotIn('email',['admin@admin.com'])->get();
+        // dd($mysql_users);
+        foreach($mysql_users as $user)
+        {
+            $data = $user->email;
+            $whatIWant = substr($data, strpos($data, "@") + 1);
+            $replce_email = str_replace($whatIWant, 'yopmail.com', $data);
+            DB::connection('mysql')->table('users')->where('id',$user->id)->update(['email'=>$replce_email]);
+            // dd($replce_str);
+            // echo $whatIWant;
+        }
     }
 }

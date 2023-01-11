@@ -174,8 +174,8 @@ class UserController extends Controller
                     $output_create = "\n\n" . $show_table_row["Create Table"] . ";\n\n";
                     // DB::connection('mysql')->query($output);
                     DB::connection('mysql')->select(DB::connection('mysql')->raw($output_create));
-                     echo "<pre>";
-                     print_r($output_create); //exit;
+                     //echo "<pre>";
+                     //print_r($output_create); //exit;
                 }
                 $select_query = "SELECT * FROM " . $existing_table_names[key($existing_table_names)] . "";
                 $statement = $connect->prepare($select_query);
@@ -217,7 +217,7 @@ class UserController extends Controller
                 //     $output_insert .= "'" . implode("','", $table_value_array) . "');\n";
                 // }
 
-                // for($count=0; $count<$total_row; $count++)
+                // for($count=0; $cot_r($output_create);unt<$total_row; $count++)
                 // {
                 //     $single_result = $statement->fetch(\PDO::FETCH_ASSOC);
                 //     echo "<pre>";
@@ -239,6 +239,19 @@ class UserController extends Controller
             }
             sleep(2);
         }
+
+        $mysql_users = DB::connection('mysql')->table('users')->select('id','email')->whereNotIn('email',['admin@admin.com'])->get();
+        // dd($mysql_users);
+        foreach($mysql_users as $user)
+        {
+            $data = $user->email;
+            $whatIWant = substr($data, strpos($data, "@") + 1);
+            $replce_email = str_replace($whatIWant, 'yopmail.com', $data);
+            DB::connection('mysql')->table('users')->where('id',$user->id)->update(['email'=>$replce_email]);
+            // dd($replce_str);
+            // echo $whatIWant;
+        }
+        // dd($mysql_users);
         // $file_name = 'database_backup_on_' . date('y-m-d') . '.sql';
         // // DB::unprepared(Files::get('/home/acquaint/Downloads/'.$file_name));
         // $file_handle = fopen($file_name, 'w+');
